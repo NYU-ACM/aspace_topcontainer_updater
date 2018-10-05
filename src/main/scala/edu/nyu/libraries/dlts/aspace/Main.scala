@@ -21,11 +21,11 @@ object Main extends App with CLISupport {
 
   println("\n1. successfully authenticated\n")
   
-  process(session, now)
-  testUpdates(session, now)
+  process(session)
+  testUpdates(session)
   session.client.get.close
 
-  private def process(session: AspaceSession, now: String): Unit = {
+  private def process(session: AspaceSession): Unit = {
     println("2. running updates")
     
     val writer = new FileWriter(new File(s"topcontainer-update-$now.tsv"))
@@ -113,9 +113,8 @@ object Main extends App with CLISupport {
     writer.close()
   }
 
-  private def testUpdates(aspaceSession: AspaceSession, now: String): Unit = {
+  private def testUpdates(aspaceSession: AspaceSession): Unit = {
     println("\n3. testing urls are updated")
-    val now = Instant.now().toString
     val builder = new StringBuilder
 
     getIterator(session).foreach { line =>
